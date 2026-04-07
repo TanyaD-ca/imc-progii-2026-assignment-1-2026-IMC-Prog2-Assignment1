@@ -16,8 +16,14 @@ Classes to implement:
 
 from abc import ABC
 from datetime import date
-from .albums import Album
-from .artists import Artist
+
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from .artists import Artist
+    from .albums import Album
+
+#from .albums import Album
+#from .artists import Artist
 
 class Track(ABC):
     def __init__(self, id: str, title: str, duration_seconds: int, genre: str) -> None :
@@ -35,17 +41,17 @@ class Track(ABC):
         return self.track_id == other.track_id
 
 class Song(Track):
-    def __init__(self, id: str, title: str, duration_seconds: int, genre: str, artist: Artist) -> None :
+    def __init__(self, id: str, title: str, duration_seconds: int, genre: str, artist: "Artist") -> None :
         super().__init__(id, title, duration_seconds, genre)
-        self.artist: Artist = artist
+        self.artist: "Artist" = artist
 
 class SingleRelease(Song):
-    def __init__(self, id: str, title: str, duration_seconds: int, genre: str, artist: Artist, release_date: date) -> None :
+    def __init__(self, id: str, title: str, duration_seconds: int, genre: str, artist: "Artist", release_date: date) -> None :
         super().__init__(id, title, duration_seconds, genre, artist)
         self.release_date: date = release_date
 
 class AlbumTrack(Song):
-    def __init__( self, id: str, title: str, duration_seconds: int, genre: str, artist: Artist, track_number: int, album: "Album" = None ) -> None:
+    def __init__( self, id: str, title: str, duration_seconds: int, genre: str, artist: "Artist", track_number: int, album: "Album" = None ) -> None:
         super().__init__(id, title, duration_seconds, genre, artist)
         self.track_number: int = track_number
         self.track_id: str = id

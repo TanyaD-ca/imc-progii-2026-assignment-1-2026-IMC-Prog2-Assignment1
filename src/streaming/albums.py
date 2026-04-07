@@ -6,13 +6,16 @@ Implement the Album class for collections of AlbumTrack objects.
 Classes to implement:
   - Album
 """
-
-from .artists import Artist
-from .tracks import AlbumTrack
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from .artists import Artist
+    from .tracks import AlbumTrack
+#from .artists import Artist
+#from .tracks import AlbumTrack
 
 class Album:
 
-    def __init__(self, id: str, title: str, artist: Artist, release_year: int) -> None :
+    def __init__(self, id: str, title: str, artist: "Artist", release_year: int) -> None :
         self.album_id: str = id
         self.title: str = title
         self.artist: Artist = artist

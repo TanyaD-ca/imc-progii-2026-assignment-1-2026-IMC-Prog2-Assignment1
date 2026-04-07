@@ -6,8 +6,10 @@ Implement the Artist class representing musicians and content creators.
 Classes to implement:
   - Artist
 """
-
-from .tracks import Track
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from .tracks import Track
+#from .tracks import Track
 
 class Artist:
     def __init__(self, id: str, name: str, genre: str) -> None:
